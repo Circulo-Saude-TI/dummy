@@ -1,12 +1,11 @@
-DEFINE VARIABLE v_cod_usuar_corren AS char.
-DEFINE VARIABLE tt-aux AS int .
-
-DEFINE TEMP-TABLE tmp-motiv-negac
+def var tt-aux AS int .
+def new global shared var v_cod_usuar_corren as char no-undo format "x(10)".
+define buffer b-usuario  for usuario.
+def TEMP-TABLE tmp-motiv-negac
   field numLivre         like motiv-negac.num-livre-1
   field desMotivNegac    like motiv-negac.des-motiv-negac
   field codLivre         like motiv-negac.cod-livre-1
   field cdnMotivNegac    like motiv-negac.cdn-motiv-negac.
-
 
 
 INPUT FROM C:\Users\gabriel.oliveira\Documents\dummy\Tabela38.csv.
@@ -16,6 +15,7 @@ REPEAT TRANSACTION:
   import delimiter ',' tmp-motiv-negac.
 end.
 input close.
+//ate aqui a sintaxe ta ok 
 
 /* --------------------------------------------------- */                          
 for each tmp-motiv-negac exclusive-lock:
@@ -25,7 +25,7 @@ for each tmp-motiv-negac exclusive-lock:
   DO TRANSACTION ON ERROR UNDO, LEAVE:
     CREATE motiv-negac.
     ASSIGN
-      motiv-negac.cd-userid           = v_cod_usuar_corren
+      motiv-negac.cd-userid            = v_cod_usuar_corren
       motiv-negac.dt-atualizacao      = TODAY
       motiv-negac.in-entidade         = "AT"
       motiv-negac.cdn-motiv-negac     = STRING(tmp-motiv-negac.numLivre, "9999")
