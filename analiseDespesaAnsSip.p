@@ -325,7 +325,7 @@ for each cadastro-despes-ans
 		
 	if not can-find(first trmodamb 
 	                where trmodamb.cd-transacao      = cadastro-despes-ans.cd-transacao
-                      and trmodamb.dt-limite         >= 01/01/2023 
+                      and trmodamb.dt-limite         >= 01/01/2025 
                       and trmodamb.cd-esp-amb        = ambproce.cd-esp-amb
                       and trmodamb.cd-grupo-proc-amb = ambproce.cd-grupo-proc-amb 
                       and trmodamb.cd-proced         = ambproce.cd-procedimento   
