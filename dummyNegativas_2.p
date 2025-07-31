@@ -10,7 +10,7 @@ def temp-table tmp-motiv-negac
     field cod-livre-1        like motiv-negac.cod-livre-1.
 
 def var ch-output-path        as char            no-undo.
-ch-output-path   = "X:\coimbra\".
+ch-output-path = "X:\coimbra\".
 
 run main.
 
@@ -28,15 +28,16 @@ procedure imp-negativas private:
         
         assign in-linha = in-linha + 1.
         
-        if in-linha = 1 /* Primeira linha do arquivo csv est  em branco */
+        if in-linha = 1 /* Primeira linha do arquivo csv est? em branco */
         then next.
-        
+        // in-linha
+        // integer(entry(3, ch-holder, ","))
         create tmp-motiv-negac.
-        assign tmp-motiv-negac.in-id           = integer(entry(1, ch-holder, ","))
-               tmp-motiv-negac.cdn-motiv-negac = in-linha
+        assign tmp-motiv-negac.in-id           = in-linha
+               tmp-motiv-negac.cdn-motiv-negac = integer(entry(1, ch-holder, ","))
                tmp-motiv-negac.des-motiv-negac = entry(2, ch-holder, ",")
-               tmp-motiv-negac.num-livre-1     = integer(entry(3, ch-holder, ","))
-               tmp-motiv-negac.cod-livre-1     = entry(4, ch-holder, ",").
+               tmp-motiv-negac.num-livre-1     = integer(entry(1, ch-holder, ","))
+               tmp-motiv-negac.cod-livre-1     = entry(2, ch-holder, ",").
         
     end.
     input close.
@@ -53,7 +54,7 @@ procedure imp-negativas private:
             count-aux = count-aux + 1.
             
             create motiv-negac.
-            assign motiv-negac.cd-userid       = "v_cod_usuar_corren"
+            assign motiv-negac.cd-userid       = v_cod_usuar_corren
                    motiv-negac.dt-atualizacao  = today
                    motiv-negac.in-entidade     = "AT"
                    motiv-negac.cdn-motiv-negac = tmp-motiv-negac.cdn-motiv-negac
