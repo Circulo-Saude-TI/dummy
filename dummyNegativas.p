@@ -19,26 +19,22 @@ input close.
 
 /* --------------------------------------------------- */                          
 for each tmp-motiv-negac exclusive-lock:
-  
   ASSIGN tt-aux = tt-aux + 1.
-  
-  DO TRANSACTION ON ERROR UNDO, LEAVE:
-    CREATE motiv-negac.
+  create motiv-negac.
+    IF AVAIL motiv-negac THEN DO:
+      ASSIGN 
+        motiv-negac.in-entidade     = "AT"
+        motiv-negac.cdn-motiv-negac = STRING(tmp-motiv-negac.numLivre, "9999")
+        exclusive-lock.
+    END.
+
     ASSIGN
       motiv-negac.cd-userid            = v_cod_usuar_corren
       motiv-negac.dt-atualizacao      = TODAY
-      motiv-negac.in-entidade         = "AT"
-      motiv-negac.cdn-motiv-negac     = STRING(tmp-motiv-negac.numLivre, "9999")
       motiv-negac.des-motiv-negac     = CAPS(tmp-motiv-negac.desMotivNegac)
       motiv-negac.num-livre-1         = tmp-motiv-negac.numLivre
       motiv-negac.cod-livre-1         = CAPS(tmp-motiv-negac.desMotivNegac).
       
-    IF ERROR-STATUS:ERROR THEN DO:
-      MESSAGE "Erro ao criar registro:" SKIP
-              "Linha:" tt-aux SKIP
-              "Erro:" ERROR-STATUS:GET-MESSAGE(1) VIEW-AS ALERT-BOX ERROR.
-      UNDO, LEAVE.
-    END.
   END.
 END.
 
