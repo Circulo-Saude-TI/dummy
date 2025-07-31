@@ -22,7 +22,7 @@ procedure imp-negativas private:
     define variable ch-holder as character       no-undo.
     define variable in-linha  as integer         no-undo.
     
-    input from value (ch-output-path + "Tabela38.csv").
+    input from value (ch-output-path + "Tabela38.csv") no-convert.
     repeat:
         import unformatted ch-holder.
         
@@ -54,7 +54,7 @@ procedure imp-negativas private:
             count-aux = count-aux + 1.
             
             create motiv-negac.
-            assign motiv-negac.cd-userid       = v_cod_usuar_corren
+            assign motiv-negac.cd-userid       = "teste ti"
                    motiv-negac.dt-atualizacao  = today
                    motiv-negac.in-entidade     = "AT"
                    motiv-negac.cdn-motiv-negac = tmp-motiv-negac.cdn-motiv-negac
