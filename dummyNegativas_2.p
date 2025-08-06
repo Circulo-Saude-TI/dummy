@@ -22,7 +22,7 @@ procedure imp-negativas private:
     define variable ch-holder as character       no-undo.
     define variable in-linha  as integer         no-undo.
     
-    input from value (ch-output-path + "Tabela38.csv") no-convert.
+    input from value (ch-output-path + "Tabela38ofc.csv") CONVERT SOURCE "UTF-8".
     repeat:
         import unformatted ch-holder.
         
