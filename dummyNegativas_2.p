@@ -21,6 +21,7 @@ end procedure.
 procedure imp-negativas private:
     define variable ch-holder as character       no-undo.
     define variable in-linha  as integer         no-undo.
+    define variable in-sequencia as integer      no-undo initial 0.
     
     input from value (ch-output-path + "Tabela38ofc.csv") CONVERT SOURCE "UTF-8".
     repeat:
@@ -30,11 +31,12 @@ procedure imp-negativas private:
         
         if in-linha = 1 /* Primeira linha do arquivo csv est? em branco */
         then next.
-        // in-linha
-        // integer(entry(3, ch-holder, ","))
+        
+        assign in-sequencia = in-sequencia + 1.
+        
         create tmp-motiv-negac.
         assign tmp-motiv-negac.in-id           = in-linha
-               tmp-motiv-negac.cdn-motiv-negac = integer(entry(1, ch-holder, ","))
+               tmp-motiv-negac.cdn-motiv-negac = in-sequencia
                tmp-motiv-negac.des-motiv-negac = entry(2, ch-holder, ",")
                tmp-motiv-negac.num-livre-1     = integer(entry(1, ch-holder, ","))
                tmp-motiv-negac.cod-livre-1     = entry(2, ch-holder, ",").
@@ -62,7 +64,6 @@ procedure imp-negativas private:
                    motiv-negac.num-livre-1     = tmp-motiv-negac.num-livre-1
                    motiv-negac.cod-livre-1     = tmp-motiv-negac.cod-livre-1.
         end.
-        
         
     end.
     
