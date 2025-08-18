@@ -1,10 +1,10 @@
 {cpc/cpc-at0110c1.i}
 
 def temp-table tt-vips no-undo
-    field cd-modalidade as char label "Modalidade"
-    field nr-ter-adesao as char label "Termo"
-    field cd-usuario    as char label "Usuário"  
-    field nm-usuario    as char label "Nome"
+    field cd-modalidade as char format "x(30)" label "Modalidade" 
+    field nr-ter-adesao as char format "x(30)" label "Termo"
+    field cd-usuario    as char format "x(30)" label "Usuário"  
+    field nm-usuario    as char format "x(30)" label "Nome" 
     index idx-principal cd-modalidade nr-ter-adesao cd-usuario.
 
 def var c-arquivo as char no-undo.
@@ -14,7 +14,7 @@ def var tt-total as int no-undo.
 /* Carrega os dados dos clientes VIP (baseado na mesma lógica do seu código) */
 for each usuario no-lock where usuario.log-11 = yes:
     create tt-vips.
-    assign tt-vips.cd-modalidade = string(usuario.cd-modalidade)
+    assign tt-vips.cd-modalidade = string(usuario.cd-modalidade) 
            tt-vips.nr-ter-adesao = string(usuario.nr-ter-adesao)
            tt-vips.cd-usuario    = string(usuario.cd-usuario)
            tt-vips.nm-usuario    = string(usuario.nm-usuario)
@@ -41,10 +41,10 @@ repeat:
         when 1 then do:
             /* Lista na tela */
             for each tt-vips:
-                display tt-vips.cd-modalidade
-                        tt-vips.nr-ter-adesao
-                        tt-vips.cd-usuario
-                        tt-vips.nm-usuario.
+                display tt-vips.cd-modalidade format "x(30)"
+                        tt-vips.nr-ter-adesao format "x(30)"
+                        tt-vips.cd-usuario format "x(30)"
+                        tt-vips.nm-usuario format "x(30)".
             end.
             message "Pressione qualquer tecla para continuar..." view-as alert-box.
         end.
@@ -84,8 +84,8 @@ repeat:
                 for each tt-vips:
                     put tt-vips.cd-modalidade ";"
                         tt-vips.nr-ter-adesao ";"
-                        tt-vips.cd-usuario ";"
-                        tt-vips.nm-usuario ";"
+                        tt-vips.cd-usuario ";"   
+                        tt-vips.nm-usuario ";"   
                         string(today, "99/99/9999") skip.
                 end.
                 

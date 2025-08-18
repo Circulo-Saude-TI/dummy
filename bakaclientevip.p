@@ -22,8 +22,7 @@ for each desplaus no-lock
     /* Busca o usuário correspondente */
     find first usuario where usuario.cd-modalidade = desplaus.cd-modalidade
                          and usuario.nr-ter-adesao = desplaus.nr-ter-adesao
-                         and usuario.cd
-                         -usuario    = desplaus.cd-usuario
+                         and usuario.cd-usuario    = desplaus.cd-usuario
                              exclusive-lock no-error.
     
     if avail usuario
